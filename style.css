@@ -1,0 +1,81 @@
+html, body {
+  height: 100%;
+  font-family: "Roboto",sans-serif;
+}
+body {
+  display: flex;
+  margin: 0;
+  flex-direction: column;
+  background: rgb(164, 205, 253);  /* Google Maps Ocean Blue */
+}
+.header {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  background-color: #343a40;
+  color: white;
+  flex-direction: row;
+  display: flex;
+  padding: .5rem 1rem;
+  align-items: center;
+}
+.brand {
+  flex: 1;
+  display: inline-block;
+  padding-top: .3125rem;
+  padding-bottom: .3125rem;
+  margin-right: 1rem;
+  font-size: 1.25rem;
+  line-height: inherit;
+  white-space: nowrap;
+}
+.south-pane {
+  flex: 1;
+  display: flex;
+}
+.sidebar {
+  background: #f6faff;
+  display: none;
+}
+@media (min-width: 500px) {
+  .sidebar {
+    flex: 0 0 200px;
+    display: block;
+    overflow-y: auto;
+    min-height: 0px;
+  }
+}
+.content {
+  flex: 1;
+}
+ul.nav {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0;
+}
+ul.nav > li {
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+.nav-link {
+  background-color: transparent;
+  color: #007bff;
+  text-decoration: none;
+  padding: .5rem 1rem;
+  display: block;
+}
+.nav-link:hover {
+  background-color: #d0d0e0;
+}
+.nav-link.active {
+  background-color: #007bff;
+  color: white;
+}
+.header a {
+  color: #77b9ff;
+  letter-spacing: 0.05em;
+  font-size: small;
+}
