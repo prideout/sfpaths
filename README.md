@@ -6,9 +6,9 @@ The `sfpaths.py` script launches a little [Flask](http://flask.pocoo.org/) serve
 
 ## Javascript App
 
-`index.html / sfpaths.js` is a fast-loading and statically-served web app that uses [D3](https://d3js.org) and talks to the [Google Maps API](https://developers.google.com/maps/documentation/javascript/).
+The `docs` folder contains a statically-served web app that loads up the aforementioned JSON file. It uses [D3](https://d3js.org) and the [Google Maps API](https://developers.google.com/maps/documentation/javascript/).
 
-The Javascript app uses flexbox CSS and has two layouts: mobile portrait and mobile landscape / desktop.
+The Javascript app uses flexbox CSS and has a responsive layout for mobile portrait, mobile landscape, and desktop.
 
 Unlike the flask server, the Javascript app does not talk to the Strava API directly.
 
@@ -16,14 +16,13 @@ Unlike the flask server, the Javascript app does not talk to the Strava API dire
 
 ### To be done
 
+- Enable Pages
+- Can Flask serve up the docs folder?
 - Animate the D3 paths
-- Left / Right buttons on mobile.  Remove Header for landscape?
-- Add a gh-pages branch
+- Left / Right buttons on mobile portrait
 - Blog entry
   - Discuss various overlay approaches with Google Maps
   - Stroke scaling
-  - Rebase away the STRAVA_API_SECRET
-
 
 - Deploy to Google Cloud
 - Play button and time slider

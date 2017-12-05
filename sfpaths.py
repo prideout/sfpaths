@@ -119,8 +119,8 @@ def create_json():
             html = io.StringIO()
             process_stream(id, req.json()[0], req.json()[1], html)
             yield html.getvalue()
-        export_json('tracks.json', activity_ids)
-        yield "<br><b>tracks.json</b> has been generated"
+        export_json('docs/tracks.json', activity_ids)
+        yield "<br><b>docs/tracks.json</b> has been generated"
     return  Response(stream_with_context(generate()))
 
 @app.route('/token_exchange')
