@@ -80,7 +80,6 @@ function initMap() {
   let originalHeight = 1;
 
   centralMap.fitBounds(bounds);
-  d3.select("#map").style('display', 'block');
   mapOverlay = new google.maps.OverlayView();
 
   mapOverlay.onAdd = function() {

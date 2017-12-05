@@ -16,7 +16,6 @@ Unlike the flask server, the Javascript app does not talk to the Strava API dire
 
 ### To be done
 
-- Fix intermittent issue with Google Maps loading incorrectly
 - Blog entry
   - Discuss various overlay approaches with Google Maps
   - Stroke scaling
