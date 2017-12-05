@@ -19,16 +19,6 @@ body {
   padding: .5rem 1rem;
   align-items: center;
 }
-.brand {
-  flex: 1;
-  display: inline-block;
-  padding-top: .3125rem;
-  padding-bottom: .3125rem;
-  margin-right: 1rem;
-  font-size: 1.25rem;
-  line-height: inherit;
-  white-space: nowrap;
-}
 .south-pane {
   flex: 1;
   display: flex;
@@ -74,8 +64,25 @@ ul.nav > li {
   background-color: #007bff;
   color: white;
 }
-.header a {
-  color: #77b9ff;
+.header span, .header a {
   letter-spacing: 0.05em;
   font-size: small;
+}
+.header span {
+  margin-right: 10px;
+  color: #b9b9b9;
+}
+.header a {
+  color: #77b9ff;
+}
+#brand {
+  color: aquamarine;
+  flex: 1;
+  display: inline-block;
+  padding-top: .3125rem;
+  padding-bottom: .3125rem;
+  margin-right: 1rem;
+  font-size: 1.25rem;
+  line-height: inherit;
+  white-space: nowrap;
 }

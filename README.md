@@ -16,7 +16,6 @@ Unlike the flask server, the Javascript app does not talk to the Strava API dire
 
 ### To be done
 
-- Show max_speed, average_speed, distance, duration
 - Animate the D3 paths
 - Left / Right buttons on mobile.  Remove Header for landscape?
 - Add a gh-pages branch

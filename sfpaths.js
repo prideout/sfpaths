@@ -9,29 +9,33 @@ let minLatLong = [1000, 1000];
 let maxLatLong = [-1000, -1000];
 let pathShape = d3.line();
 
-function Activity(id, date, trackArray) {
-    this.id = id;
-    this.date = date;  // ISO 8601 string
-    this.timepoints = []; // list of integer seconds since start of activity
-    this.latitudes = [];
-    this.longitudes = [];
-    this.lines = [];
-    for (let i = 0; i < trackArray.length; i += 3) {
-      const lat = trackArray[i];
-      const long = trackArray[i + 1];
-      const timepoint = trackArray[i + 2];
-      minLatLong[0] = Math.min(minLatLong[0], lat);
-      maxLatLong[0] = Math.max(maxLatLong[0], lat);
-      minLatLong[1] = Math.min(minLatLong[1], long);
-      maxLatLong[1] = Math.max(maxLatLong[1], long);
-      this.timepoints.push(timepoint);
-      this.latitudes.push(lat);
-      this.longitudes.push(long);
-      this.lines.push([lat, long]);
-    }
-    this.d3data = {};
-    Object.freeze(this);
-    return this;
+function Activity(id, trackObject) {
+  this.id = id;
+  this.date = trackObject['date'];  // ISO 8601 string
+  this.duration = secondsToString(trackObject['duration']);
+  this.max_mph = 2.23694 * trackObject['max_speed'];
+  this.avg_mph = 2.23694 * trackObject['average_speed'];
+  this.timepoints = []; // list of integer seconds since start of activity
+  this.latitudes = [];
+  this.longitudes = [];
+  this.lines = [];
+  const tracks = trackObject['track'];
+  for (let i = 0; i < tracks.length; i += 3) {
+    const lat = tracks[i];
+    const long = tracks[i + 1];
+    const timepoint = tracks[i + 2];
+    minLatLong[0] = Math.min(minLatLong[0], lat);
+    maxLatLong[0] = Math.max(maxLatLong[0], lat);
+    minLatLong[1] = Math.min(minLatLong[1], long);
+    maxLatLong[1] = Math.max(maxLatLong[1], long);
+    this.timepoints.push(timepoint);
+    this.latitudes.push(lat);
+    this.longitudes.push(long);
+    this.lines.push([lat, long]);
+  }
+  this.d3data = {};
+  Object.freeze(this);
+  return this;
 }
 
 function getAnchorClass(id)  {
@@ -42,10 +46,15 @@ function getAnchorClass(id)  {
   return klass;
 }
 
-function updateStravaLink(id) {
+function updateHeader(id) {
   d3.select('#strava-link')
-    .text('Strava Activity ' + id)
+    .text('Strava ' + id)
     .attr("href", "https://www.strava.com/activities/" + id);
+  const activity = activities[id];
+  d3.select('#info').text(
+    // activity.duration + ', ' +
+    activity.avg_mph.toFixed(1) + '/' +
+    activity.max_mph.toFixed(1) + ' mph');
 }
 
 function updateSvgPath(id) {
@@ -124,11 +133,43 @@ function googleMapsReady() {
   }
 }
 
+function selectActivity(index) {
+  if (index < 0 || index >= activityIds.length) {
+    return;
+  }
+  selectedId = activityIds[index];
+  d3.selectAll(".nav a").attr("class", getAnchorClass);
+  updateHeader(selectedId);
+  updateSvgPath(selectedId);
+}
+
+function secondsToString(seconds) {
+  const date = new Date(null);
+  date.setSeconds(seconds);
+  const hhmm = date.toISOString().substr(11, 5);
+  const hours = parseInt(hhmm.substr(0, 2));
+  const minutes = parseInt(hhmm.substr(3));
+  let retval = '';
+  if (hours == 1) {
+    retval = '1 hr';
+  } else if (hours > 1) {
+    retval = hours + ' hr';
+  }
+  if (hours > 0 && minutes > 0) {
+    retval = retval + ' ';
+  }
+  if (minutes == 1) {
+    retval = reval + '1 min';
+  } else if (minutes > 1) {
+    retval = retval + minutes + ' min';
+  }
+  return retval;
+}
+
 d3.json("tracks.json", (error, activityData) => {
   if (error) throw error;
   for (const id in activityData) {
-    const item = activityData[id];
-    activities[id] = new Activity(id, item['date'], item['track']);
+    activities[id] = new Activity(id, activityData[id]);
   };
 
   // The most recent activity should come first.
@@ -150,21 +191,11 @@ d3.json("tracks.json", (error, activityData) => {
     })
     .on("click", (id, index) => selectActivity(index));
 
-  updateStravaLink(selectedId);
+  updateHeader(selectedId);
   if (centralMap) {
     initMap();
   }
 });
-
-function selectActivity(index) {
-  if (index < 0 || index >= activityIds.length) {
-    return;
-  }
-  selectedId = activityIds[index];
-  d3.selectAll(".nav a").attr("class", getAnchorClass);
-  updateStravaLink(selectedId);
-  updateSvgPath(selectedId);
-}
 
 d3.select("body").on("keydown", () => {
   const key = d3.event.which;
