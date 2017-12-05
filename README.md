@@ -16,10 +16,6 @@ Unlike the flask server, the Javascript app does not talk to the Strava API dire
 
 ### To be done
 
-- Blog entry
-  - Discuss various overlay approaches with Google Maps
-  - Stroke scaling
-
 - Play button and time slider
   - [Inspiration](https://geoseyeview.wordpress.com/2014/03/08/passion-project-5-d3-gpx-gpx-player/)
 
