@@ -57,10 +57,20 @@ function updateHeader(id) {
 }
 
 function updateSvgPath(id) {
-  d3.select("svg path")
-    .datum(activities[id].lines)
-    .transition()
-    .attr("d", pathShape);
+  if (d3.select("svg path").attr("d")) {
+    d3.select("svg path")
+      .datum(activities[id].lines)
+      .transition()
+      .attrTween('d', function(d) {
+          var previous = d3.select(this).attr('d');
+          var current = pathShape(d);
+          return interpolatePath(previous, current);
+        });
+  } else {
+    d3.select("svg path")
+      .datum(activities[id].lines)
+      .attr("d", pathShape);
+  }
 };
 
 function initMap() {
