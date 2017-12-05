@@ -206,14 +206,21 @@ d3.json("tracks.json", (error, activityData) => {
   }
 });
 
-d3.select("body").on("keydown", () => {
-  const key = d3.event.which;
+function getActivityIndex() {
   const liNode = d3.select(".active").node().parentElement;
   const ulNode = liNode.parentElement;
-  const index = Array.prototype.indexOf.call(ulNode.childNodes, liNode) - 1;
+  return Array.prototype.indexOf.call(ulNode.childNodes, liNode) - 1;
+}
+
+d3.select("body").on("keydown", () => {
+  const key = d3.event.which;
+  const index = getActivityIndex();
   if (key == 39 || key == 40) {
     selectActivity(index + 1);
   } else if (key == 37 || key == 38) {
     selectActivity(index - 1);
   }
 });
+
+d3.select("#previous").on("click", () => selectActivity(getActivityIndex() - 1));
+d3.select("#next").on("click", () => selectActivity(getActivityIndex() + 1));

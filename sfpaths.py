@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 
-# pip3 install flask requests py-dateutil
-# export STRAVA_API_CLIENT_ID=12345
-# export STRAVA_API_SECRET=c0ffee0000000000000000000000000000000001
-# FLASK_APP=sfpaths.py flask run
+# Usage:
+#   pip3 install flask requests py-dateutil
+#   export STRAVA_API_CLIENT_ID=12345
+#   export STRAVA_API_SECRET=c0ffee0000000000000000000000000000000001
+#   FLASK_APP=sfpaths.py flask run
 
 import sys
 import io

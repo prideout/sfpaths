@@ -20,10 +20,11 @@ body {
     color: white;
     flex-direction: row;
     display: flex;
-    padding: .5rem 1rem;
+    padding: .5rem .5rem;
     align-items: center;
   }
 }
+
 .south-pane {
   flex: 1;
   display: flex;
@@ -32,7 +33,10 @@ body {
   background: #f6faff;
   display: none;
 }
-@media (min-width: 500px) {
+@media (min-width: 420px) {
+  .header {
+    padding: .5rem 1rem;
+  }
   .sidebar {
     flex: 0 0 200px;
     display: block;
@@ -83,7 +87,7 @@ ul.nav > li {
 #brand {
   display: none;
 }
-@media (min-width: 500px) {
+@media (min-width: 420px) {
   #brand {
     color: aquamarine;
     flex: 1;
@@ -95,4 +99,18 @@ ul.nav > li {
     line-height: inherit;
     white-space: nowrap;
   }
+}
+#leftright {
+  flex: 1;
+  text-align: right;
+  display: inline-block;
+  margin: 0;
+}
+@media (min-width: 420px) {
+  #leftright {
+    display: none;
+  }
+}
+#leftright button {
+  font-size: 20px;
 }
