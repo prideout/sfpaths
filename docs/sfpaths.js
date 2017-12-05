@@ -52,14 +52,14 @@ function updateHeader(id) {
     .attr("href", "https://www.strava.com/activities/" + id);
   const activity = activities[id];
   d3.select('#info').text(
-    // activity.duration + ', ' +
-    activity.avg_mph.toFixed(1) + '/' +
+    activity.avg_mph.toFixed(1) + ' / ' +
     activity.max_mph.toFixed(1) + ' mph');
 }
 
 function updateSvgPath(id) {
   d3.select("svg path")
     .datum(activities[id].lines)
+    .transition()
     .attr("d", pathShape);
 };
 
@@ -95,8 +95,7 @@ function initMap() {
       .attr("viewBox", "0 0 " + width + " " + height)
       .append("path")
       .attr("fill", "none")
-      .attr("stroke", "rgb(255,45,38)")
-      .attr("stroke-width", 1);
+      .attr("stroke", "#2d699e");
 
     updateSvgPath(selectedId);
     originalHeight = height;

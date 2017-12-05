@@ -70,7 +70,6 @@ ul.nav > li {
   color: white;
 }
 .header span, .header a {
-  letter-spacing: 0.05em;
   font-size: small;
 }
 .header span {
@@ -79,6 +78,7 @@ ul.nav > li {
 }
 .header a {
   color: #77b9ff;
+  letter-spacing: 0.05em;
 }
 #brand {
   display: none;
