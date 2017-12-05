@@ -1,5 +1,7 @@
 **sfpaths** is a pet project that allows quick visualization of a set of Strava paths.
 
+See [my blog entry](http://github.prideout.net/d3-strava) for more about this.
+
 ## Flask Server
 
 The `sfpaths.py` script launches a little [Flask](http://flask.pocoo.org/) server that logs in to [Strava](https://www.strava.com/), collects all the Lat-Long data, then generates a consolidated and minimal JSON file called `tracks.json`.

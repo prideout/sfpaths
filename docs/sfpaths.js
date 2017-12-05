@@ -56,28 +56,28 @@ function updateHeader(id) {
     activity.max_mph.toFixed(1) + ' mph');
 }
 
-function updateSvgPath(id) {
-  if (d3.select("svg path").attr("d")) {
-    d3.select("svg path")
-      .datum(activities[id].lines)
-      .transition()
-      .attrTween('d', function(d) {
-          var previous = d3.select(this).attr('d');
-          var current = pathShape(d);
-          return interpolatePath(previous, current);
-        });
-  } else {
-    d3.select("svg path")
-      .datum(activities[id].lines)
-      .attr("d", pathShape);
+function updateSvgPath(activityId) {
+  let selection = d3.select("svg path")
+    .datum(activities[activityId].lines);
+
+  // If this is the first time drawing the path, no need to animate.
+  if (!d3.select("svg path").attr("d")) {
+    selection.attr("d", pathShape);
+    return;
   }
+
+  selection.transition().attrTween('d', function(data) {
+      var previous = d3.select(this).attr('d');
+      var current = pathShape(data);
+      return interpolatePath(previous, current);
+    });
 };
 
 function initMap() {
   const bounds = new google.maps.LatLngBounds(
     new google.maps.LatLng(minLatLong[0], minLatLong[1]),
     new google.maps.LatLng(maxLatLong[0], maxLatLong[1]));
-  let originalHeight = 1;
+  let originalHeight;
 
   centralMap.fitBounds(bounds);
   mapOverlay = new google.maps.OverlayView();
@@ -86,12 +86,9 @@ function initMap() {
     const proj = this.getProjection();
     const ne = proj.fromLatLngToDivPixel(bounds.getNorthEast());
     const sw = proj.fromLatLngToDivPixel(bounds.getSouthWest());
-    const span = bounds.toSpan();
-    const aabb = bounds.toJSON();
-    const width = ne.x - sw.x;
-    const height = sw.y - ne.y;
-    const scalex = width / span.lng();
-    const scaley = height / span.lat();
+    const span = bounds.toSpan(), aabb = bounds.toJSON();
+    const width = ne.x - sw.x, height = sw.y - ne.y;
+    const scalex = width / span.lng(), scaley = height / span.lat();
 
     pathShape
       .x(d => (d[1] - aabb.west) * scalex)
