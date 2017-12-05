@@ -16,8 +16,6 @@ Unlike the flask server, the Javascript app does not talk to the Strava API dire
 
 ### To be done
 
-- Enable Pages
-- Can Flask serve up the docs folder?
 - Animate the D3 paths
 - Left / Right buttons on mobile portrait
 - Blog entry

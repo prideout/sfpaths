@@ -10,7 +10,7 @@ import io
 import os
 import urllib.parse
 from flask import Flask, request, redirect, session, url_for, escape
-from flask import Response, stream_with_context
+from flask import Response, stream_with_context, send_from_directory
 import requests
 import dateutil.parser
 from datetime import timedelta
@@ -89,9 +89,16 @@ def index():
     if 'username' not in session:
         return login_and_redirect('index')
     return '''
-        <p>logged in as <b>{}</b></p>
-        <a href="create_json">generate JSON file</a>
+        <p>Logged in to Strava as <b>{}</b></p>
+        <ul>
+        <li><a href="docs/index.html">web app</a></li>
+        <li><a href="create_json">generate JSON file</a></li>
+        </ul>
         '''.format(escape(session['username']))
+
+@app.route('/docs/<path:path>')
+def send_docs(path):
+    return send_from_directory('docs', path)
 
 @app.route('/create_json')
 def create_json():
